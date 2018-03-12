@@ -71,9 +71,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<Transaction> search(String query) {
-
         if(query.equals("")) return transactions;
-
 
         Transaction t = new Transaction(parseBigDecimal(query), parseDateTime(query), query);
 
