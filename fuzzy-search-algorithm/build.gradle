@@ -38,6 +38,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile 'joda-time:joda-time:2.9.9'
     compile 'org.apache.commons:commons-text:1.2'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
     testCompile("junit:junit")
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
 
