@@ -16,6 +16,7 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'application'
+apply plugin: 'jacoco'
 
 
 mainClassName = "com.fuzzy.search.Application"
@@ -40,4 +41,18 @@ dependencies {
     testCompile("junit:junit")
     testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
 
+}
+
+jacocoTestReport {
+    additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+    executionData = files('build/jacoco/test.exec')
+}
+
+test {
+    finalizedBy jacocoTestReport
 }

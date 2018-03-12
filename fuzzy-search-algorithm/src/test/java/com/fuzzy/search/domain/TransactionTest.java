@@ -62,6 +62,12 @@ public class TransactionTest {
     }
 
     @Test
+    public void shouldReturnFalseOnNull() {
+        Transaction t2 = null;
+        Assert.assertFalse(transaction.equals(t2));
+    }
+
+    @Test
     public void shouldDistanceOnAmountBeFalse() {
         Transaction t = new Transaction(BigDecimal.valueOf(100d), null, null);
         Transaction t2 = new Transaction(BigDecimal.TEN, null, null);
@@ -73,6 +79,11 @@ public class TransactionTest {
         Assert.assertFalse(t.equals(t2));
 
         t = new Transaction(BigDecimal.valueOf(100.00d), null, null);
+        t2 = new Transaction(BigDecimal.valueOf(201.00d), null, null);
+
+        Assert.assertFalse(t.equals(t2));
+
+        t = new Transaction(null, null, null);
         t2 = new Transaction(BigDecimal.valueOf(201.00d), null, null);
 
         Assert.assertFalse(t.equals(t2));
