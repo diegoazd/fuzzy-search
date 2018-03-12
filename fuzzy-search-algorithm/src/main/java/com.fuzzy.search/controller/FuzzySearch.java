@@ -7,4 +7,5 @@ import java.util.List;
 public interface FuzzySearch {
 
     List<Transaction> fuzzySearch(String query);
+    List<Transaction> getAll();
 }

@@ -27,7 +27,7 @@ public class FuzzySearchImplTest {
 
     @Test
     public void shouldReturnNull() {
-        assertTrue(fuzzySearch.fuzzySearch("").isEmpty());
+        assertTrue(fuzzySearch.getAll().isEmpty());
     }
 
     @Test
