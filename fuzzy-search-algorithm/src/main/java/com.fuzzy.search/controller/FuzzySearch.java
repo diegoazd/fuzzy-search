@@ -2,9 +2,9 @@ package com.fuzzy.search.controller;
 
 import com.fuzzy.search.domain.Transaction;
 
-import java.util.Set;
+import java.util.List;
 
 public interface FuzzySearch {
 
-    Set<Transaction> fuzzySearch(String query);
+    List<Transaction> fuzzySearch(String query);
 }

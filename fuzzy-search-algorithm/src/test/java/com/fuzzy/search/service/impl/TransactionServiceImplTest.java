@@ -2,7 +2,6 @@ package com.fuzzy.search.service.impl;
 
 import com.fuzzy.search.domain.Transaction;
 import com.fuzzy.search.service.TransactionService;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
