@@ -72,29 +72,39 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<Transaction> search(String query) {
 
-        BigDecimal amount;
+        if(query.equals("")) return transactions;
 
+
+        Transaction t = new Transaction(parseBigDecimal(query), parseDateTime(query), query);
+
+        return transactions.stream().filter(transaction -> transaction.equals(t))
+                .collect(Collectors.toList());
+    }
+
+    private BigDecimal parseBigDecimal(String query) {
+        BigDecimal amount;
         try{
             amount = BigDecimal.valueOf(Double.valueOf(query));
         }catch (NumberFormatException nfe) {
-           amount = null;
+            amount = null;
         }
 
+        return amount;
+    }
+
+    private DateTime parseDateTime(String query) {
         DateTime dateTime;
 
         try{
             dateTime = formatter.parseDateTime(query);
         }catch (IllegalArgumentException iae) {
             try{
-               dateTime = shortFormat.parseLocalDate(query).toDateTime(LocalTime.MIDNIGHT);
+                dateTime = shortFormat.parseLocalDate(query).toDateTime(LocalTime.MIDNIGHT);
             }catch (IllegalArgumentException iae2) {
                 dateTime = null;
             }
         }
 
-        Transaction t = new Transaction(amount, dateTime, query);
-
-        return transactions.stream().filter(transaction -> transaction.equals(t))
-                .collect(Collectors.toList());
+        return dateTime;
     }
 }

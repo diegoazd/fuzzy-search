@@ -50,4 +50,11 @@ public class TransactionServiceImplTest {
         assertTrue(list.size() == 3);
     }
 
+    @Test
+    public void shouldReturnAllForEmptyString() {
+        List<Transaction> list = transactionService.search("");
+        assertNotNull(list);
+        assertTrue(list.size() == 10);
+    }
+
 }

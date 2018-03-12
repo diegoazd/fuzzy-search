@@ -19,7 +19,6 @@ public class FuzzySearchImpl implements FuzzySearch {
     @Override
     @GetMapping(value = "search/{query}/transaction", produces = "application/json")
     public List<Transaction> fuzzySearch(@PathVariable String query) {
-        System.out.println(query);
         return transactionService.search(query);
     }
 }
