@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 
 function Items(props) {
   const values = props.value;
-  console.log(values);
-  const items = values.map((value) =>
-    <li key={value}>{value}</li>
+  const items = values.map((value, index) =>
+    <li key={index}>amount: <b>{value.amount}</b> card last four: <b>{value.cardLastFour}</b> date: <b>{value.dateTime}</b> </li>
   )	
 
   return(
@@ -19,11 +18,18 @@ class App extends Component {
 	this.state = {value: '',
     suggestions: []};
     this.handleChange = this.handleChange.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
   
   handleChange(event) {
     this.setState({value: event.target.value});
     this.getSuggestions(event.target.value);
+  }
+  
+  handleKeyPress(event){
+	if(event.key === 'Enter') {
+		this.getSuggestions(this.state.value);
+    }
   }
 
   fetchData(data) {
@@ -37,10 +43,8 @@ class App extends Component {
   }
   
   getSuggestions(data) {
-	return Promise.all([this.fetchData(data)]).then(([data]) => {
-        let s = data.length === 0 ? [] : data.map(item => item.amount+ ' '+ item.cardLastFour);
-		console.log(s);
-        this.setState({suggestions: s});
+	Promise.all([this.fetchData(data)]).then(([data]) => {
+        this.setState({suggestions: data});
 	});
   }
 
@@ -49,21 +53,12 @@ class App extends Component {
   };
 
   render() {
-	const { value, suggestions } = this.state;
-
-	// Autosuggest will pass through all these props to the input.
-	const inputProps = {
-	  placeholder: 'Type something to search',
-	  value,
-	  onChange: this.onChange
-	};
-
     return (
       <div>
         <h1>Fuzzy search</h1>
         <div className="content">
             <h2>Search:</h2>
-			<input type="text" onChange={this.handleChange} className="search-input"/>
+			<input type="text" onChange={this.handleChange} onKeyPress={this.handleKeyPress} className="search-input"/>
             <div className="autocomplete">
 				<Items value={this.state.suggestions}/>
             </div>
