@@ -1,13 +1,29 @@
 import React, { Component } from 'react';
 
+function Items(props) {
+  const values = props.value;
+  console.log(values);
+  const items = values.map((value) =>
+    <li key={value}>{value}</li>
+  )	
+
+  return(
+	<ul>{items}</ul>
+  )
+}
+
 class App extends Component {
   
   constructor(props){
-	super(props);
-	this.state = {value: ''};
-	
-	this.handleChange = this.handleChange.bind(this);
-	this.handleKeyPress = this.handleKeyPress.bind(this);
+	super();
+	this.state = {value: '',
+    suggestions: []};
+    this.handleChange = this.handleChange.bind(this);
+  }
+  
+  handleChange(event) {
+    this.setState({value: event.target.value});
+    this.getSuggestions(event.target.value);
   }
 
   fetchData(data) {
@@ -15,37 +31,42 @@ class App extends Component {
 	if(data !== '') {
 		url+='/'+data+'/transaction'
 	}
-	fetch(url) 
-	  .then(result => {
-		result.json().then(data => {
-			console.log(data.length);
-
-		})
+	var sugestions = [];
+	return fetch(url) 
+	  .then(response => response.json());
+  }
+  
+  getSuggestions(data) {
+	return Promise.all([this.fetchData(data)]).then(([data]) => {
+        let s = data.length === 0 ? [] : data.map(item => item.amount+ ' '+ item.cardLastFour);
+		console.log(s);
+        this.setState({suggestions: s});
 	});
   }
 
-  handleChange(event) {
-    console.log(event.target.value);
-	this.setState({value: event.target.value});
-	this.fetchData(event.target.value);
-
-  }
-
-  handleKeyPress(event) {
-	if(event.key === 'Enter'){
-     this.fetchData('');
-	}
-  }
+  onSuggestionsFetchRequested = ({ value }) => {
+	this.suggestions = this.getSuggestions(value);
+  };
 
   render() {
+	const { value, suggestions } = this.state;
+
+	// Autosuggest will pass through all these props to the input.
+	const inputProps = {
+	  placeholder: 'Type something to search',
+	  value,
+	  onChange: this.onChange
+	};
+
     return (
       <div>
         <h1>Fuzzy search</h1>
         <div className="content">
-          <div className="autocomplete">
             <h2>Search:</h2>
-            <input type="text" value={this.state.value} onKeyPress={this.handleKeyPress} onChange={this.handleChange} />
-          </div>
+			<input type="text" onChange={this.handleChange} className="search-input"/>
+            <div className="autocomplete">
+				<Items value={this.state.suggestions}/>
+            </div>
         </div>
       </div>
     );
