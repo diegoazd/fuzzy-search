@@ -14,11 +14,13 @@ public class Transaction {
     private BigDecimal amount;
     private DateTime date;
     private String cardLastFour;
+    private String dateTime;
 
     public Transaction(BigDecimal amount, DateTime date, String cardLastFour) {
         this.amount = amount;
         this.date = date;
         this.cardLastFour = cardLastFour;
+        this.dateTime =  this.date != null ? this.date.toString("dd-MM-yy hh:mm") : "";
     }
 
 
@@ -32,6 +34,10 @@ public class Transaction {
 
     public String getCardLastFour() {
         return cardLastFour;
+    }
+
+    public String getDateTime() {
+        return this.dateTime;
     }
 
     @Override

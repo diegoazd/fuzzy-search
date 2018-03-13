@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,6 +68,12 @@ public class TransactionServiceImpl implements TransactionService {
         transactions.add(t8);
         transactions.add(t9);
         transactions.add(t10);
+
+        Collections.sort(transactions, (o1, o2) -> {
+            if (o1.getDate() == null || o2.getDate() == null)
+                return 0;
+            return o1.getDate().compareTo(o2.getDate());
+        });
     }
 
 
