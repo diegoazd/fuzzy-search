@@ -5,6 +5,7 @@ import com.fuzzy.search.service.TransactionService;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.List;
 import static org.junit.Assert.*;
 
@@ -22,6 +23,14 @@ public class TransactionServiceImplTest {
         List<Transaction> list = transactionService.search("2540");
         assertNotNull(list);
         assertTrue(list.size() == 2);
+
+        assertEquals("2544", list.get(0).getCardLastFour());
+        assertEquals(BigDecimal.valueOf(112.98), list.get(0).getAmount());
+        assertEquals("27-01-2018 12:34", list.get(0).getDateTime());
+
+        assertEquals("2544", list.get(1).getCardLastFour());
+        assertEquals(BigDecimal.valueOf(1345.98), list.get(1).getAmount());
+        assertEquals("27-01-2018 12:34", list.get(1).getDateTime());
     }
 
     @Test
@@ -48,6 +57,17 @@ public class TransactionServiceImplTest {
         list = transactionService.search("27-01-2018");
         assertNotNull(list);
         assertTrue(list.size() == 3);
+        assertEquals("2544", list.get(0).getCardLastFour());
+        assertEquals(BigDecimal.valueOf(112.98), list.get(0).getAmount());
+        assertEquals("27-01-2018 12:34", list.get(0).getDateTime());
+
+        assertEquals("2544", list.get(1).getCardLastFour());
+        assertEquals(BigDecimal.valueOf(1345.98), list.get(1).getAmount());
+        assertEquals("27-01-2018 12:34", list.get(1).getDateTime());
+
+        assertEquals("4444", list.get(2).getCardLastFour());
+        assertEquals(BigDecimal.valueOf(2580.70), list.get(2).getAmount());
+        assertEquals("27-01-2018 12:34", list.get(2).getDateTime());
     }
 
     @Test

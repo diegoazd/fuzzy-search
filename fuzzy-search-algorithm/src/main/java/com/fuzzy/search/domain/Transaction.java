@@ -20,7 +20,7 @@ public class Transaction {
         this.amount = amount;
         this.date = date;
         this.cardLastFour = cardLastFour;
-        this.dateTime =  this.date != null ? this.date.toString("dd-MM-yy hh:mm") : "";
+        this.dateTime =  this.date != null ? this.date.toString("dd-MM-yyyy hh:mm") : "";
     }
 
 
