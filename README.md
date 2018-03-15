@@ -4,12 +4,15 @@
 Online [application](http://35.224.33.127:3000/) testing
 
 
-## Requisites 
+
+## Running locally: 
+
+### Requisites 
 * node
 * java 8
 * application needs ports 3000 and 8080
+---
 
-## Running locally: 
 * go fuzzy-search-algorithm
 * run application: ./gradlew run
 * go fuzzy-search directory:
