@@ -37,7 +37,6 @@ class App extends Component {
 	if(data !== '') {
 		url+='/'+data+'/transaction'
 	}
-	var sugestions = [];
 	return fetch(url) 
 	  .then(response => response.json());
   }
